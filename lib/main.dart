@@ -1,115 +1,107 @@
+import 'package:consultant_app/repositories/Admin/Category/all_categories.dart';
+import 'package:consultant_app/repositories/Admin/Category/category_create.dart';
+import 'package:consultant_app/repositories/Admin/Status/r_status_screen.dart';
+import 'package:consultant_app/repositories/Admin/Users/all_users.dart';
+import 'package:consultant_app/repositories/Admin/Users/create_user.dart';
+import 'package:consultant_app/utils/SharedPref.dart';
+import 'package:consultant_app/view/auth/TabBarScreen.dart';
+import 'package:consultant_app/view/auth/login/LoginScreen.dart';
+import 'package:consultant_app/view/auth/login/LoginVM.dart';
+import 'package:consultant_app/view/auth/register/RegisterScreen.dart';
+import 'package:consultant_app/view/auth/register/RegisterVM.dart';
+import 'package:consultant_app/view/category/categoriy_screen.dart';
+import 'package:consultant_app/view/details/DetailsScreen.dart';
+import 'package:consultant_app/view/details/DetailsVM.dart';
+import 'package:consultant_app/view/filter/FilterVM.dart';
+import 'package:consultant_app/view/home/HomeScreen.dart';
+import 'package:consultant_app/view/home/HomeVM.dart';
+import 'package:consultant_app/view/mails_by_status/MailsByStatusScreen.dart';
+import 'package:consultant_app/view/mails_by_status/MailsByStatusVM.dart';
+import 'package:consultant_app/view/mails_by_tag/MailsByTagScreen.dart';
+import 'package:consultant_app/view/mails_by_tag/MailsByTagVM.dart';
+import 'package:consultant_app/view/search/SearchVM.dart';
+import 'package:consultant_app/view/splach/SplashScreen.dart';
+import 'package:consultant_app/view/status/StatusScreen.dart';
+import 'package:consultant_app/view/tag/TagScreen.dart';
+import 'package:consultant_app/view/tag/TagVM.dart';
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/adapters.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:provider/provider.dart';
+import 'package:responsive_framework/responsive_wrapper.dart';
+import 'package:responsive_framework/utils/scroll_behavior.dart';
 
-void main() {
-  runApp(const MyApp());
+import 'view/status/StatusVM.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  final applicationDocDir = await getApplicationDocumentsDirectory();
+  await Hive.initFlutter(applicationDocDir.path);
+  await Hive.openBox("myBox");
+  //
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+            create: (_) => LoginVM(sharedPref: SharedPref())),
+        ChangeNotifierProvider(
+            create: (_) => RegisterVM(sharedPref: SharedPref())),
+        ChangeNotifierProvider(create: (_) => StatusVM()),
+        ChangeNotifierProvider(create: (_) => HomeVM()),
+        ChangeNotifierProvider(create: (_) => DetailsVM()),
+        ChangeNotifierProvider(create: (_) => ProviderTags()),
+        ChangeNotifierProvider(create: (_) => MailsByTagVM()),
+        ChangeNotifierProvider(create: (_) => MailsByStatusVM()),
+        ChangeNotifierProvider(create: (_) => SearchVM()),
+        ChangeNotifierProvider(create: (_) => FilterVM()),
+      ],
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      builder: (context, child) => ResponsiveWrapper.builder(
+          BouncingScrollWrapper.builder(context, child!),
+          maxWidth: 1200,
+          minWidth: 450,
+          defaultScale: true,
+          breakpoints: [
+            const ResponsiveBreakpoint.resize(450, name: MOBILE),
+            const ResponsiveBreakpoint.autoScale(800, name: TABLET),
+            const ResponsiveBreakpoint.autoScale(1000, name: TABLET),
+            const ResponsiveBreakpoint.resize(1200, name: DESKTOP),
+            const ResponsiveBreakpoint.autoScale(2460, name: "4K"),
+          ],
+          background: Container(color: const Color(0xFFF5F5F5))),
+      debugShowCheckedModeBanner: false,
+      title: 'Pal Mail',
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
-    return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      initialRoute: '/',
+      routes: {
+        '/': (context) => SplashScreen(),
+        '/TabBar': (context) => TabBarScreen(),
+        '/Login': (context) => LoginScreen(),
+        '/Register': (context) => RegisterScreen(),
+        '/Home': (context) => HomeScreen(),
+        '/Details': (context) => DetailsScreen(),
+        '/Statuses': (context) => StatusScreen(),
+        '/Tags': (context) => TagScreen(),
+        '/MailByTag': (context) => MailsByTagScreen(),
+        '/MailByStatus': (context) => MailsByStatusScreen(),
+        '/Admin/CreateUser': (context) => CreateUser(),
+        '/Admin/Users': (context) => AllUsers(),
+        'Admin/Category': (context) => AdminCatgeoryScreen(),
+        'Admin/status': (context) => RStatusScreen(),
+        '/Admin/Category/create': (context) => CreateCategory(),
+        '/Category': (context) => CategoriyScreen(),
+      },
     );
   }
 }

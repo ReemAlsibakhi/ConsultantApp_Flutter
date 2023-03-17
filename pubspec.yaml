@@ -1,4 +1,4 @@
-name: mail_app_flutter
+name: consultant_app
 description: A new Flutter project.
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
@@ -43,6 +43,8 @@ dependencies:
   hive_flutter: ^1.1.0
   path_provider: ^2.0.9
   toast: ^0.3.0
+  responsive_framework: ^0.2.0
+  intl: ^0.18.0
   flutter_session_manager: ^1.0.3
   shared_preferences: ^2.0.18
 
