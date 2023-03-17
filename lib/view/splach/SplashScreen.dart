@@ -19,6 +19,7 @@ class _SplashScreenState extends State<SplashScreen> {
   getIsLogIn() async {
     final prefs = await SharedPreferences.getInstance();
     isLogin = prefs.getBool('is_logged_in')!;
+    print('splach isLogin1 $isLogin');
   }
 
   @override
@@ -34,7 +35,7 @@ class _SplashScreenState extends State<SplashScreen> {
     Future.delayed(const Duration(seconds: 5), () {
       Navigator.pushReplacement(context,
           MaterialPageRoute(builder: (BuildContext context) {
-        return isLogin == true ? HomeScreen() : TabBarScreen();
+        return isLogin ? HomeScreen() : TabBarScreen();
       }));
     });
     return Scaffold(

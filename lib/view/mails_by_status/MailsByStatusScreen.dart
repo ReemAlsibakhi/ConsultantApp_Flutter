@@ -123,6 +123,7 @@ Widget _getMailsList(List<MailFilter> data) {
   return ListView.builder(
       shrinkWrap: true,
       itemCount: data.length,
+      physics: const NeverScrollableScrollPhysics(),
       itemBuilder: (BuildContext context, int idx) {
         return Theme(
           data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
@@ -134,6 +135,7 @@ Widget _getMailsList(List<MailFilter> data) {
             children: [
               ListView.separated(
                 shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
                 itemCount: data[idx].children.length,
                 itemBuilder: (context, index) {
                   return MailTile(data[idx].children[index]);

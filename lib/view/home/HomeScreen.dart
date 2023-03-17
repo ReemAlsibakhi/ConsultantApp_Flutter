@@ -278,6 +278,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return ListView.builder(
         shrinkWrap: true,
         itemCount: data.length,
+        physics: const NeverScrollableScrollPhysics(),
         itemBuilder: (BuildContext context, int idx) {
           return Theme(
             data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
@@ -289,6 +290,7 @@ class _HomeScreenState extends State<HomeScreen> {
               children: [
                 ListView.separated(
                   shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
                   itemCount: data[idx].children.length,
                   itemBuilder: (context, index) {
                     return MailTile(data[idx].children[index]);
@@ -311,6 +313,7 @@ class _HomeScreenState extends State<HomeScreen> {
           'Not found data', 14, 'Poppins', kDarkGreyColor, FontWeight.w400);
     }
     return GridView.builder(
+      physics: const NeverScrollableScrollPhysics(),
       itemCount: statusList.length,
       shrinkWrap: true,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(

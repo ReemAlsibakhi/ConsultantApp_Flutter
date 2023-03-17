@@ -120,6 +120,7 @@ class StatusScreen extends StatelessWidget {
 
 Widget _getStatusListView(List<StatusMail> statusList, StatusVM viewModel) {
   return ListView.separated(
+    physics: const NeverScrollableScrollPhysics(),
     itemBuilder: (context, index) => ListTile(
       onTap: () {
         viewModel.updateSelectedItem(index + 1);

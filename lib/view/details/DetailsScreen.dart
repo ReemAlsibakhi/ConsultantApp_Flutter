@@ -130,7 +130,6 @@ class _detailWidgetState extends State<_detailWidget> {
       child: Padding(
         padding: const EdgeInsets.only(right: 16, left: 16, top: 16),
         child: SingleChildScrollView(
-          physics: ClampingScrollPhysics(),
           child: Column(children: [
             BorderShape(
                 Padding(
@@ -367,6 +366,7 @@ class _detailWidgetState extends State<_detailWidget> {
                       ListView.separated(
                         shrinkWrap: true,
                         itemCount: 2,
+                        physics: const NeverScrollableScrollPhysics(),
                         itemBuilder: (BuildContext context, int idx) {
                           return ImageTile();
                         },
@@ -389,6 +389,7 @@ class _detailWidgetState extends State<_detailWidget> {
                 backgroundColor: Colors.transparent,
                 children: [
                   ListView.separated(
+                    physics: const NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
                     itemCount: widget.data.activities!.length,
                     itemBuilder: (context, index) {

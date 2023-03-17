@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../model/user/UserModel.dart';
 import '../../../utils/Constants.dart';
@@ -25,13 +26,18 @@ class RegisterVM extends ChangeNotifier {
     return userToken;
   }
 
+  Future<void> setUserLogin(bool isLogin) async {
+    await sharedPref.setUserLogin(isLogin);
+  }
+
   Future<UserModel?> registerRequest(
       String email, String pass, String name, BuildContext context) async {
     showLoadingDialog(context);
-    repo.register(email, pass, name).then((value) {
+    repo.register(email, pass, name).then((value) async {
       Navigator.pop(context);
-      SharedPref().setUserLogin(true);
-      setUserToken(value!.token!);
+      final prefs = await SharedPreferences.getInstance();
+      prefs.setString('token', value!.token!);
+      prefs.setBool('is_logged_in', true);
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text(value!.user!.role!.name!),
         backgroundColor: kLightPrimaryColor,

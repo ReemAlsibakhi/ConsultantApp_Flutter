@@ -25,7 +25,7 @@ class NetworkApiService extends BaseApiService {
   @override
   Future getResponse(String url) async {
     final prefs = await SharedPreferences.getInstance();
-    token = prefs.getString('token');
+    String? token = prefs.getString('token');
     print('token getResponse $token');
     try {
       final response = await http.get(

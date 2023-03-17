@@ -13,7 +13,7 @@ class CustomSearch extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextField(
       keyboardType: TextInputType.text,
-      onChanged: (value) {
+      onSubmitted: (value) {
         vm.setText(value);
         print('value : $value');
       },

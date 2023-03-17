@@ -1,6 +1,7 @@
 import 'package:consultant_app/utils/SharedPref.dart';
 import 'package:consultant_app/view/auth/login/LoginRepo.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../model/user/UserModel.dart';
 import '../../../utils/Constants.dart';
@@ -16,10 +17,16 @@ class LoginVM extends ChangeNotifier {
   String userToken = '';
 
   Future<void> setUserToken(String token) async {
-    await sharedPref.setToken(token);
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setString('token', token);
     userToken = token;
   }
-  //
+
+  Future<void> setUserLogin(bool isLogin) async {
+    await sharedPref.setUserLogin(isLogin);
+    // userToken = token;
+  }
+
   // Future<String> getUserToken() async {
   //   userToken = (await sharedPref.getToken())!;
   //   return userToken;
@@ -28,11 +35,8 @@ class LoginVM extends ChangeNotifier {
   Future<UserModel?> loginRequest(
       String email, String pass, BuildContext context) async {
     showLoadingDialog(context);
-    repo.login(email, pass).then((value) {
+    repo.login(email, pass).then((value) async {
       Navigator.pop(context);
-      print('token loginRequest${value.token}');
-      SharedPref().setUserLogin(true);
-      setUserToken(value.token!);
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text(value.user!.role!.name!),
         backgroundColor: kLightPrimaryColor,
@@ -43,6 +47,9 @@ class LoginVM extends ChangeNotifier {
       }), (r) {
         return false;
       });
+      final prefs = await SharedPreferences.getInstance();
+      prefs.setString('token', value.token!);
+      prefs.setBool('is_logged_in', true);
     }).onError((error, stackTrace) {
       Navigator.pop(context);
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(

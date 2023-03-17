@@ -196,6 +196,7 @@ Widget _getMailsList(List<MailFilter> data) {
   return ListView.builder(
       shrinkWrap: true,
       itemCount: data.length,
+      physics: const NeverScrollableScrollPhysics(),
       itemBuilder: (BuildContext context, int idx) {
         return Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -214,6 +215,7 @@ Widget _getMailsList(List<MailFilter> data) {
               height: 14,
             ),
             ListView.separated(
+              physics: const NeverScrollableScrollPhysics(),
               shrinkWrap: true,
               itemCount: data[idx].children.length,
               itemBuilder: (context, index) {

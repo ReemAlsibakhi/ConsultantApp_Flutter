@@ -154,6 +154,7 @@ Widget _getCategoryListView(List<Categories>? categories, FilterVM viewModel) {
     decoration: BoxDecoration(
         color: Colors.white, borderRadius: BorderRadius.circular(30)),
     child: ListView.separated(
+      physics: const NeverScrollableScrollPhysics(),
       itemBuilder: (context, index) =>
           _getCategoryTile(categories[index], viewModel),
       separatorBuilder: (context, index) {
@@ -194,6 +195,7 @@ Widget _getStatusListView(List<StatusMail> statusList, FilterVM viewModel) {
     decoration: BoxDecoration(
         color: Colors.white, borderRadius: BorderRadius.circular(30)),
     child: ListView.separated(
+      physics: const NeverScrollableScrollPhysics(),
       itemBuilder: (context, index) =>
           _getStatusTile(statusList[index], viewModel),
       separatorBuilder: (context, index) {

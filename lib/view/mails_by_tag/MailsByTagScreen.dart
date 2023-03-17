@@ -92,6 +92,7 @@ class MailsByTagScreen extends StatelessWidget {
     }
     return ListView.separated(
       shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
       itemCount: mails[0].mails!.length,
       itemBuilder: (BuildContext context, int idx) {
         return MailTile(mails[0].mails![idx]);
@@ -111,6 +112,7 @@ class MailsByTagScreen extends StatelessWidget {
           borderRadius: BorderRadius.all(Radius.circular(22))),
       child: GridView.builder(
         shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
         padding: const EdgeInsets.all(15),
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 3,
