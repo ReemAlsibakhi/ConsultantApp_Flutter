@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -22,9 +24,9 @@ class RegisterVM extends ChangeNotifier {
     showLoadingDialog(context);
     repo.register(email, pass, name).then((value) async {
       Navigator.pop(context);
-      final prefs = await SharedPreferences.getInstance();
-      prefs.setString('token', value!.token!);
-      prefs.setBool('is_logged_in', true);
+      SharedPref.inst.setString(AppKeys.TOKEN, value!.token!);
+      SharedPref.inst.setString(AppKeys.USER, json.encode(value));
+      SharedPref.inst.setBool(AppKeys.ISLogged, true);
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text(value!.user!.role!.name!),
         backgroundColor: kLightPrimaryColor,

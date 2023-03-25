@@ -40,7 +40,7 @@ class TabBarScreen extends StatelessWidget {
                         ),
                         Center(
                           child: Text(
-                            'authModel.authScreenTitle',
+                          'Consultant App',
                             style: const TextStyle(
                               color: Colors.white,
                               fontSize: 22,

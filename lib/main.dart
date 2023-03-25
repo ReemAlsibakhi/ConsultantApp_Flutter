@@ -39,8 +39,6 @@ void main() async {
   await Hive.initFlutter(applicationDocDir.path);
   await Hive.openBox("myBox");
   await SharedPref.inst.onInit();
-
-  //
   runApp(
     MultiProvider(
       providers: [
