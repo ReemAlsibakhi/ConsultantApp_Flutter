@@ -1,11 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:consultant_app/utils/Constants.dart';
 import 'package:consultant_app/utils/SharedPref.dart';
 import 'package:http/http.dart' as http;
-import 'package:shared_preferences/shared_preferences.dart';
-
 import '../AppException.dart';
 import 'BaseApiService.dart';
 
@@ -13,19 +10,9 @@ class NetworkApiService extends BaseApiService {
   static const id = 'NetworkApiService';
   SharedPref sharedPref = SharedPref();
   dynamic responseJson;
-  String? token;
-
-  NetworkApiService() {
-    //  getUserToken();
-  }
-  // Future<String> getUserToken() async {
-  //   userToken = (await sharedPref.getToken())!;
-  //   return userToken;
-  // }
 
   @override
   Future getResponse(String url) async {
-    // final prefs = await SharedPreferences.getInstance();
     String? token = SharedPref.inst.getString(AppKeys.TOKEN);
     print('token getResponse $token');
     try {
@@ -47,8 +34,7 @@ class NetworkApiService extends BaseApiService {
 
   @override
   Future putResponse(String url, Map<String, dynamic> jsonBody) async {
-    final prefs = await SharedPreferences.getInstance();
-    token = prefs.getString('token');
+    String? token = SharedPref.inst.getString(AppKeys.TOKEN);
     dynamic responseJson;
     try {
       final response = await http.put(
@@ -67,8 +53,7 @@ class NetworkApiService extends BaseApiService {
 
   @override
   Future postResponse(String url, Map JsonBody) async {
-    final prefs = await SharedPreferences.getInstance();
-    token = prefs.getString('token');
+    String? token = SharedPref.inst.getString(AppKeys.TOKEN);
     dynamic responseJson;
     try {
       final response = await http.post(
