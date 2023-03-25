@@ -20,7 +20,6 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var viewModel = Provider.of<LoginVM>(context, listen: false);
-    viewModel.setUserToken('English');
 
     return SingleChildScrollView(
       child: Column(

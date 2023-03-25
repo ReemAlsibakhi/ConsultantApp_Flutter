@@ -41,3 +41,11 @@ String getArchDate(String date) {
   var outputDate = outputFormat.format(inputDate);
   return outputDate;
 }
+
+
+class AppKeys {
+  static const String ISLogged = "is_logged_in";
+  static const String USER = "USER_DATA";
+  static const String TOKEN = "token";
+  static const String Language = "lang";
+}

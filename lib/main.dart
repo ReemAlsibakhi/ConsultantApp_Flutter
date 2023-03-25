@@ -9,6 +9,7 @@ import 'package:consultant_app/view/auth/login/LoginScreen.dart';
 import 'package:consultant_app/view/auth/login/LoginVM.dart';
 import 'package:consultant_app/view/auth/register/RegisterScreen.dart';
 import 'package:consultant_app/view/auth/register/RegisterVM.dart';
+import 'package:consultant_app/view/auth/splach/SplashScreen.dart';
 import 'package:consultant_app/view/category/categoriy_screen.dart';
 import 'package:consultant_app/view/details/DetailsScreen.dart';
 import 'package:consultant_app/view/details/DetailsVM.dart';
@@ -20,8 +21,7 @@ import 'package:consultant_app/view/mails_by_status/MailsByStatusVM.dart';
 import 'package:consultant_app/view/mails_by_tag/MailsByTagScreen.dart';
 import 'package:consultant_app/view/mails_by_tag/MailsByTagVM.dart';
 import 'package:consultant_app/view/search/SearchVM.dart';
-import 'package:consultant_app/view/splach/SplashScreen.dart';
-import 'package:consultant_app/view/status/StatusScreen.dart';
+ import 'package:consultant_app/view/status/StatusScreen.dart';
 import 'package:consultant_app/view/tag/TagScreen.dart';
 import 'package:consultant_app/view/tag/TagVM.dart';
 import 'package:flutter/material.dart';
@@ -38,12 +38,14 @@ void main() async {
   final applicationDocDir = await getApplicationDocumentsDirectory();
   await Hive.initFlutter(applicationDocDir.path);
   await Hive.openBox("myBox");
+  await SharedPref.inst.onInit();
+
   //
   runApp(
     MultiProvider(
       providers: [
         ChangeNotifierProvider(
-            create: (_) => LoginVM(sharedPref: SharedPref())),
+            create: (_) => LoginVM()),
         ChangeNotifierProvider(
             create: (_) => RegisterVM(sharedPref: SharedPref())),
         ChangeNotifierProvider(create: (_) => StatusVM()),

@@ -16,19 +16,6 @@ class RegisterVM extends ChangeNotifier {
 
   String userToken = '';
 
-  Future<void> setUserToken(String token) async {
-    await sharedPref.setToken(token);
-    userToken = token;
-  }
-
-  Future<String> getUserToken() async {
-    userToken = (await sharedPref.getToken())!;
-    return userToken;
-  }
-
-  Future<void> setUserLogin(bool isLogin) async {
-    await sharedPref.setUserLogin(isLogin);
-  }
 
   Future<UserModel?> registerRequest(
       String email, String pass, String name, BuildContext context) async {

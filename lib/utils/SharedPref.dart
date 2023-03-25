@@ -1,54 +1,48 @@
+import 'dart:convert';
+
+import 'package:consultant_app/model/user/User.dart';
+import 'package:consultant_app/utils/Constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../model/user/UserModel.dart';
+
 class SharedPref {
-  static const String SHARED_APP_DATA = "app_data";
-  static const String ISLoggedIn = "is_logged_in";
-  static const String USER_DATA = "USER_DATA";
-  static const String TOKEN = "token";
-  static const String SHARED_LANGUAGE = "lang";
-  late SharedPreferences _prefs;
+ static SharedPref inst =  SharedPref();
 
-  Future<void> getSharedPreferences() async {
-    if (_prefs == null) {
+   late SharedPreferences _prefs;
+
+   Future<void> onInit() async {
       _prefs = await SharedPreferences.getInstance();
-    }
   }
 
-  SharedPref();
-
-  Future<void> setUserLogin(bool isLogin) async {
-    await getSharedPreferences();
-    _prefs.setBool(ISLoggedIn, isLogin);
+  setString(String key, String value)async{
+    _prefs.setString(key, value);
   }
 
-  Future<bool?> getUserLogin() async {
-    try {
-      await getSharedPreferences();
-      return _prefs.getBool(ISLoggedIn);
-    } catch (e) {
-      return false;
-    }
+  getString(String key)async{
+     return _prefs.getString(key) ?? '' ;
   }
 
-  Future<void> setToken(String token) async {
-    await getSharedPreferences();
-    _prefs.setString(TOKEN, token);
+  setBool(String key, bool value)async{
+    _prefs.setBool(key, value);
   }
 
-  Future getToken() async {
-    String? token;
-    final prefs = await SharedPreferences.getInstance();
-    token = prefs.getString(TOKEN);
-    return token;
+  getBool(String key)async{
+    return _prefs.getBool(key) ?? false ;
   }
 
-  // void setUser(UserModel userModel) async {
-  //   final SharedPreferences pref = await prefs;
-  //   await pref.setString(USER_DATA, userModel.toString());
-  // }
-  //
-  // Future<UserModel?> getUser() async {
-  //   final SharedPreferences pref = await prefs;
-  //   return UserModel.fromJson(pref.getString(USER_DATA));
-  // }
+  
+  Future<User?> getUserData()async{
+     final user = _prefs.getString(AppKeys.USER);
+     return user == null ? null : UserModel.fromJson(json.decode(user)).user;
+  }
+
+ Future<String> getToken()async{
+   final user = _prefs.getString(AppKeys.USER);
+   return user == null ? '' : UserModel.fromJson(json.decode(user)).token!;
+ }
+
+
+
+
 }
