@@ -1,4 +1,3 @@
-import 'package:consultant_app/utils/SharedPref.dart';
 import 'package:consultant_app/view/auth/register/RegisterVM.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -15,7 +14,7 @@ class RegisterScreen extends StatelessWidget {
 
   AuthApi auth = AuthApi();
   AuthViewModel authModel = AuthViewModel();
-  RegisterVM vm = RegisterVM(sharedPref: SharedPref());
+  RegisterVM vm = RegisterVM();
   TextEditingController? controller_email = TextEditingController();
   TextEditingController? controller_pass = TextEditingController();
   TextEditingController? controller_confirm_pass = TextEditingController();

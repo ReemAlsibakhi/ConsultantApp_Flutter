@@ -8,7 +8,7 @@ import '../model/user/UserModel.dart';
 
 class SharedPref {
   static SharedPref inst = SharedPref();
-//
+
   late SharedPreferences _prefs;
 
   Future<void> onInit() async {
@@ -19,7 +19,7 @@ class SharedPref {
     _prefs.setString(key, value);
   }
 
-  getString(String key) async {
+  Future<String?> getString(String key) async {
     return _prefs.getString(key) ?? '';
   }
 

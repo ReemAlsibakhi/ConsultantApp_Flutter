@@ -27,7 +27,7 @@ class HomeVM extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<StatusModel?> fetchStatus() async {
+  Future<void> fetchStatus() async {
     _setStatusMain(ApiResponse.loading());
     repo
         .getStatus()
@@ -43,7 +43,7 @@ class HomeVM extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<CategoryModel?> fetchCategory() async {
+  Future<void> fetchCategory() async {
     _setCategoryMain(ApiResponse.loading());
     repo
         .getCategory()
@@ -59,7 +59,7 @@ class HomeVM extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<MailModel?> fetchMails() async {
+  Future<void> fetchMails() async {
     _setMailsMain(ApiResponse.loading());
     repo
         .getMails()
@@ -75,7 +75,7 @@ class HomeVM extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<TagsModel?> fetchTags() async {
+  Future<void> fetchTags() async {
     _setTagsMain(ApiResponse.loading());
     repo
         .getTags()

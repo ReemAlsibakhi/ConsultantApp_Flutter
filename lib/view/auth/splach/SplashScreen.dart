@@ -3,12 +3,10 @@ import 'dart:async';
 import 'package:consultant_app/utils/SharedPref.dart';
 import 'package:consultant_app/view/auth/TabBarScreen.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../data/services/main_services.dart';
 import '../../../utils/Constants.dart';
 import '../../home/HomeScreen.dart';
-
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -20,24 +18,33 @@ class _SplashScreenState extends State<SplashScreen> {
   MainServices ms = MainServices();
   bool isLogin = false;
 
-  countAndPush(){
-    Timer(Duration(milliseconds: 700), ()async {
-      await SharedPref.inst.getToken() == '' ? isLogin = false : true;
-      Navigator.pushReplacement(context,
-      MaterialPageRoute(builder: (BuildContext context) {
-      return isLogin ? HomeScreen() : TabBarScreen();
-      },),);
-    },);
+  countAndPush() {
+    Timer(
+      const Duration(milliseconds: 700),
+      () async {
+        //  await SharedPref.inst.getToken() == '' ? isLogin = false : true;
+        isLogin = (await SharedPref.inst.getBool(AppKeys.ISLogged))!;
+        print('isLogin: $isLogin');
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (BuildContext context) {
+              return isLogin ? HomeScreen() : TabBarScreen();
+            },
+          ),
+        );
+      },
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    print('splach isLogin $isLogin');
     countAndPush();
-    //
+    print('splach isLogin $isLogin');
+
     return Scaffold(
       body: Container(
-        decoration:   BoxDecoration(
+        decoration: BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,

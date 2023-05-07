@@ -21,7 +21,7 @@ import 'package:consultant_app/view/mails_by_status/MailsByStatusVM.dart';
 import 'package:consultant_app/view/mails_by_tag/MailsByTagScreen.dart';
 import 'package:consultant_app/view/mails_by_tag/MailsByTagVM.dart';
 import 'package:consultant_app/view/search/SearchVM.dart';
- import 'package:consultant_app/view/status/StatusScreen.dart';
+import 'package:consultant_app/view/status/StatusScreen.dart';
 import 'package:consultant_app/view/tag/TagScreen.dart';
 import 'package:consultant_app/view/tag/TagVM.dart';
 import 'package:flutter/material.dart';
@@ -42,10 +42,8 @@ void main() async {
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider(
-            create: (_) => LoginVM()),
-        ChangeNotifierProvider(
-            create: (_) => RegisterVM(sharedPref: SharedPref())),
+        ChangeNotifierProvider(create: (_) => LoginVM()),
+        ChangeNotifierProvider(create: (_) => RegisterVM()),
         ChangeNotifierProvider(create: (_) => StatusVM()),
         ChangeNotifierProvider(create: (_) => HomeVM()),
         ChangeNotifierProvider(create: (_) => DetailsVM()),

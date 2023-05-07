@@ -1,65 +1,79 @@
 import 'package:consultant_app/view/auth/login/LoginVM.dart';
-import 'package:consultant_app/view_models/auth_view_model.dart';
+import 'package:consultant_app/view/widgets/Button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../utils/Constants.dart';
-import '../../widgets/Button.dart';
 import '../../widgets/CustomText.dart';
+import '../../widgets/ShowLoadingDialog.dart';
 import '../../widgets/SocialIcons.dart';
-import '../../widgets/customTextField.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({Key? key}) : super(key: key);
-
-  AuthViewModel authModel = AuthViewModel();
-
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passController = TextEditingController();
-
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    var viewModel = Provider.of<LoginVM>(context, listen: false);
-
     return SingleChildScrollView(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          customTextField(
-            authModel.emailTFHintText,
-            false,
-            controller: emailController,
-          ),
-          const SizedBox(
-            height: 16,
-          ),
-          customTextField(
-            authModel.passTFHint,
-            true,
-            controller: passController,
-          ),
-          const SizedBox(
-            height: 40,
-          ),
-          Button(
-            title: authModel.signInBtnText,
-            onPressed: () async {
-              viewModel.loginRequest(
-                  emailController.text, passController.text, context);
-              print(passController.text);
-              print(emailController.text);
-            },
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          CustomText(
-              authModel.orText, 14, 'Poppins', kHintGreyColor, FontWeight.w400),
-          const SizedBox(
-            height: 20,
-          ),
-          const SocialIcons(),
-        ],
+      child: ChangeNotifierProvider<LoginVM>(
+        create: (viewModel) => LoginVM(),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            TextFormField(
+              controller: emailController,
+              keyboardType: TextInputType.emailAddress,
+              decoration: InputDecoration(
+                labelText: 'Email',
+                errorText: context.watch<LoginVM>().emailError,
+                hintStyle: const TextStyle(
+                    color: kHintGreyColor, fontSize: 12, fontFamily: 'Poppins'),
+              ),
+            ),
+            const SizedBox(
+              height: 16,
+            ),
+            TextFormField(
+              controller: passwordController,
+              obscureText: true,
+              decoration: InputDecoration(
+                labelText: 'Password',
+                errorText: context.watch<LoginVM>().passwordError,
+                hintStyle: const TextStyle(
+                    color: kHintGreyColor, fontSize: 12, fontFamily: 'Poppins'),
+              ),
+            ),
+            const SizedBox(
+              height: 40,
+            ),
+            Consumer<LoginVM>(builder: (_, viewModel, __) {
+              return Button(
+                onPressed: viewModel.isLoading
+                    ? null
+                    : () {
+                        if (!context.read<LoginVM>().validateInputs(
+                            emailController.text, passwordController.text)) {
+                          return;
+                        }
+                        showLoadingDialog(context);
+                        print('email: ${emailController.text}');
+                        viewModel.loginRequest(emailController.text,
+                            passwordController.text, context);
+                      },
+                title: 'Log In',
+              );
+            }),
+            const SizedBox(
+              height: 20,
+            ),
+            CustomText(
+                'orText', 14, 'Poppins', kHintGreyColor, FontWeight.w400),
+            const SizedBox(
+              height: 20,
+            ),
+            const SocialIcons(),
+          ],
+        ),
       ),
     );
   }

@@ -31,7 +31,7 @@ class customTextField extends StatelessWidget {
           bottom: BorderSide(color: kGreyColor),
         ),
       ),
-      child: TextField(
+      child: TextFormField(
         obscureText: obsecure!,
         controller: controller,
         decoration: InputDecoration(
@@ -45,6 +45,12 @@ class customTextField extends StatelessWidget {
               color: kHintGreyColor, fontSize: 12, fontFamily: 'Poppins'),
           border: border,
         ),
+        validator: (value) {
+          if (value!.isEmpty) {
+            return 'Please enter your $hintText';
+          }
+          return null;
+        },
       ),
     );
   }
