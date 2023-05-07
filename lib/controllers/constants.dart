@@ -1,6 +1,3 @@
-import '../data/services/main_services.dart';
-
-MainServices ms = MainServices();
 String baseUrl = "https://palmail.betweenltd.com/api";
 String loginEndPoint = "login";
 String registerEndpoint = "register";
@@ -18,5 +15,5 @@ Map<String, String>? authHeaders = {
   "Content-Type": "application/json",
   "accept": "application/json",
   "Access-Control-Allow-Origin": "*",
-  'Authorization': 'Bearer ${ms.readFromHiveBox("token")}'
+  // 'Authorization': 'Bearer ${ms.readFromHiveBox("token")}'
 };

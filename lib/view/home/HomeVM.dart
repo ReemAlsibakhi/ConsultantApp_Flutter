@@ -83,4 +83,18 @@ class HomeVM extends ChangeNotifier {
         .onError((error, stackTrace) =>
             _setTagsMain(ApiResponse.error(error.toString())));
   }
+
+  // @override
+  // Future<void> logOut(BuildContext context) async {
+  //   String url = "$baseUrl" "/" "$logOutEndPoint";
+  //   await service.authPostData(url);
+  //   final prefs = await SharedPreferences.getInstance();
+  //   prefs.setBool('is_logged_in', false);
+  //   Navigator.pushAndRemoveUntil(context,
+  //       MaterialPageRoute(builder: (BuildContext context) {
+  //         return TabBarScreen();
+  //       }), (r) {
+  //         return false;
+  //       });
+  // }
 }

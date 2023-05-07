@@ -6,6 +6,7 @@ import '../../../model/user/UserModel.dart';
 import '../../../utils/Constants.dart';
 import '../../../utils/SharedPref.dart';
 import '../../home/HomeScreen.dart';
+import '../../widgets/ShowLoadingDialog.dart';
 import 'LoginRepo.dart';
 
 class LoginVM extends ChangeNotifier {
@@ -28,7 +29,7 @@ class LoginVM extends ChangeNotifier {
     if (email.isEmpty) {
       _emailError = 'Please enter your email';
       isValid = false;
-    } else if (!email.contains('@')) {
+    } else if (!UserModel.isEmail(email)) {
       _emailError = 'Please enter a valid email address';
       isValid = false;
     } else {
@@ -52,9 +53,12 @@ class LoginVM extends ChangeNotifier {
   Future<void> loginRequest(
       String email, String pass, BuildContext context) async {
     _isLoading = true;
+    showLoadingDialog(context);
+
     try {
       repo.login(email, pass).then((value) async {
         _isLoading = false;
+        Navigator.pop(context);
 
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text(value.user!.role!.name!),
@@ -72,6 +76,7 @@ class LoginVM extends ChangeNotifier {
         SharedPref.inst.setBool(AppKeys.ISLogged, true);
       }).onError((error, stackTrace) {
         _isLoading = false;
+        Navigator.pop(context);
 
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text(error.toString()),

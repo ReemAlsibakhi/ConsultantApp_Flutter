@@ -5,7 +5,6 @@ import 'package:provider/provider.dart';
 
 import '../../../utils/Constants.dart';
 import '../../widgets/CustomText.dart';
-import '../../widgets/ShowLoadingDialog.dart';
 import '../../widgets/SocialIcons.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -55,8 +54,6 @@ class LoginScreen extends StatelessWidget {
                             emailController.text, passwordController.text)) {
                           return;
                         }
-                        showLoadingDialog(context);
-                        print('email: ${emailController.text}');
                         viewModel.loginRequest(emailController.text,
                             passwordController.text, context);
                       },

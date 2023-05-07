@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../data/remote/response/ApiResponse.dart';
-import '../../data/repositories/Auth/auth_api.dart';
 import '../../model/category/Categories.dart';
 import '../../model/mail/MailData.dart';
 import '../../utils/Constants.dart';
@@ -28,9 +27,6 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   List<MailFilter> data = <MailFilter>[];
   final scaffoldKey = GlobalKey<ScaffoldState>();
-
-  @override
-  AuthApi auth = AuthApi();
 
   @override
   Widget build(BuildContext context) {
@@ -256,7 +252,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    auth.logOut(context);
+                    // auth.logOut(context);
                   },
                   child: ListTile(
                     leading: Icon(Icons.logout),

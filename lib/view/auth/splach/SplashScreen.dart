@@ -4,7 +4,6 @@ import 'package:consultant_app/utils/SharedPref.dart';
 import 'package:consultant_app/view/auth/TabBarScreen.dart';
 import 'package:flutter/material.dart';
 
-import '../../../data/services/main_services.dart';
 import '../../../utils/Constants.dart';
 import '../../home/HomeScreen.dart';
 
@@ -15,7 +14,6 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  MainServices ms = MainServices();
   bool isLogin = false;
 
   countAndPush() {

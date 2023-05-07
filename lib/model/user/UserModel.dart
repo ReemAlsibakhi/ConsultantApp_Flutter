@@ -21,4 +21,9 @@ class UserModel {
     map['token'] = token;
     return map;
   }
+
+  static bool isEmail(String value) {
+    final regex = RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$');
+    return regex.hasMatch(value);
+  }
 }
