@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:consultant_app/utils/SharedPref.dart';
 import 'package:consultant_app/view/auth/TabBarScreen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../utils/Constants.dart';
 import '../../home/HomeScreen.dart';
@@ -20,9 +21,9 @@ class _SplashScreenState extends State<SplashScreen> {
     Timer(
       const Duration(milliseconds: 700),
       () async {
-        //  await SharedPref.inst.getToken() == '' ? isLogin = false : true;
+        // await SharedPref.inst.getToken() == '' ? isLogin = false : true;
         isLogin = (await SharedPref.inst.getBool(AppKeys.ISLogged))!;
-        print('isLogin: $isLogin');
+        // print('isLogin: $isLogin');
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
@@ -38,35 +39,38 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     countAndPush();
-    print('splach isLogin $isLogin');
-
     return Scaffold(
       body: Container(
-        decoration: BoxDecoration(
+        width: 360.w,
+        height: 780.w,
+        decoration: const BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
             colors: [kPrimaryColor, kLightPrimaryColor],
           ),
         ),
-        alignment: Alignment.center,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: const [
-            Image(
-              image: AssetImage('images/logo2.png'),
-            ),
-            Text(
-              'Complaints App',
-              style: TextStyle(
-                fontSize: 31,
-                color: Colors.white,
-                fontFamily: 'Gulzar',
-              ),
-            ),
-          ],
-        ),
+        child: _buildLogo('Complaints App'),
       ),
     );
   }
+}
+
+Widget _buildLogo(String title) {
+  return Column(
+    mainAxisAlignment: MainAxisAlignment.center,
+    children: [
+      const Image(
+        image: AssetImage('images/logo2.png'),
+      ),
+      Text(
+        title,
+        style: TextStyle(
+          fontSize: 25.sp,
+          color: Colors.white,
+          fontFamily: 'Gulzar',
+        ),
+      ),
+    ],
+  );
 }

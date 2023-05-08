@@ -16,6 +16,13 @@ class FilterScreen extends StatelessWidget {
   final FilterVM viewModel;
 
   FilterScreen({required this.viewModel});
+
+  @override
+  void dispose() {
+    viewModel.dispose(); // properly dispose of the ViewModel instance
+//    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     // final FilterVM viewModel = FilterVM();

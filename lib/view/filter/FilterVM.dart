@@ -60,8 +60,4 @@ class FilterVM extends ChangeNotifier {
   }
 
   int getSelectedCats() => _selectedCats;
-  @override
-  void dispose() {
-    super.dispose();
-  }
 }
