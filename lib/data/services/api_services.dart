@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 
-import '../../controllers/constants.dart';
+import '../../../utils/Constants.dart';
 
 class ApiServices {
   getSingleRecourse(String url) async {

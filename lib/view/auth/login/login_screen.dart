@@ -1,4 +1,4 @@
-import 'package:consultant_app/view/auth/login/LoginVM.dart';
+import 'package:consultant_app/view/auth/login/login_vm.dart';
 import 'package:consultant_app/view/widgets/Button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -16,7 +16,7 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: ChangeNotifierProvider<LoginVM>(
-        create: (viewModel) => LoginVM(),
+        create: (_) => LoginVM(),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
@@ -67,16 +67,15 @@ class LoginScreen extends StatelessWidget {
   Widget _buildTextFormField(TextEditingController controller, bool obscure,
       TextInputType inputType, String label, String? error) {
     return Container(
-      width: 262,
-      height: 49,
-      margin: EdgeInsets.only(bottom: 15.h),
+      margin: EdgeInsets.only(bottom: 12.h),
       child: TextFormField(
         controller: controller,
         obscureText: obscure,
         keyboardType: inputType,
         decoration: InputDecoration(
-          labelText: label,
+          labelText: null,
           errorText: error,
+          hintText: label,
           errorStyle: TextStyle(
               color: Colors.red, fontSize: 8.sp, fontFamily: 'Poppins'),
           enabledBorder: const UnderlineInputBorder(

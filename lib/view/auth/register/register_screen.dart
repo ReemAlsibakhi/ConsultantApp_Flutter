@@ -1,4 +1,4 @@
-import 'package:consultant_app/view/auth/register/RegisterVM.dart';
+import 'package:consultant_app/view/auth/register/register_vm.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
@@ -91,11 +91,12 @@ class RegisterScreen extends StatelessWidget {
         obscureText: obscure,
         keyboardType: inputType,
         decoration: InputDecoration(
-          labelText: label,
+          labelText: null,
+          hintText: label,
           errorText: error,
           errorStyle: TextStyle(
               color: Colors.red, fontSize: 8.sp, fontFamily: 'Poppins'),
-          enabledBorder: UnderlineInputBorder(
+          enabledBorder: const UnderlineInputBorder(
             borderSide: BorderSide(color: kGreyColor),
           ),
           labelStyle: TextStyle(

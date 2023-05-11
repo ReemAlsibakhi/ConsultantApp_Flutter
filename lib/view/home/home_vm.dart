@@ -1,18 +1,23 @@
 import 'package:consultant_app/model/category/CategoryModel.dart';
 import 'package:consultant_app/model/mail/MailModel.dart';
 import 'package:consultant_app/model/status/StatusModel.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:consultant_app/utils/Constants.dart';
+import 'package:consultant_app/utils/SharedPref.dart';
+import 'package:flutter/material.dart';
 
 import '../../data/remote/response/ApiResponse.dart';
 import '../../model/tags/TagsModel.dart';
-import 'HomeRepo.dart';
+import '../auth/tab_bar_screen.dart';
+import '../widgets/ShowLoadingDialog.dart';
+import 'home_repo.dart';
 
 class HomeVM extends ChangeNotifier {
   ApiResponse<CategoryModel> catMain = ApiResponse.loading();
   ApiResponse<StatusModel> statusMain = ApiResponse.loading();
   ApiResponse<MailModel> mailMain = ApiResponse.loading();
   ApiResponse<TagsModel> tagsMain = ApiResponse.loading();
-  HomeRepo repo = HomeRepo();
+
+  final HomeRepo repo = HomeRepo();
 
   HomeVM() {
     fetchStatus();
@@ -84,17 +89,32 @@ class HomeVM extends ChangeNotifier {
             _setTagsMain(ApiResponse.error(error.toString())));
   }
 
-  // @override
-  // Future<void> logOut(BuildContext context) async {
-  //   String url = "$baseUrl" "/" "$logOutEndPoint";
-  //   await service.authPostData(url);
-  //   final prefs = await SharedPreferences.getInstance();
-  //   prefs.setBool('is_logged_in', false);
-  //   Navigator.pushAndRemoveUntil(context,
-  //       MaterialPageRoute(builder: (BuildContext context) {
-  //         return TabBarScreen();
-  //       }), (r) {
-  //         return false;
-  //       });
-  // }
+  Future<void> logOut(BuildContext context) async {
+    showLoadingDialog(context);
+
+    await repo.logout().then((value) {
+      Navigator.pop(context);
+
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text('Success Logout'),
+        backgroundColor: kLightPrimaryColor,
+      ));
+
+      Navigator.pushAndRemoveUntil(context,
+          MaterialPageRoute(builder: (BuildContext context) {
+        return TabBarScreen();
+      }), (r) {
+        return false;
+      });
+      SharedPref.inst.setBool(AppKeys.ISLogged, false);
+      SharedPref.inst.clear();
+    }).onError((error, stackTrace) {
+      Navigator.pop(context);
+
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(error.toString()),
+        backgroundColor: Colors.red.shade300,
+      ));
+    });
+  }
 }

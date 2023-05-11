@@ -27,8 +27,8 @@ class User {
   int? id;
   String? name;
   String? email;
-  dynamic image;
-  dynamic emailVerifiedAt;
+  String? image;
+  String? emailVerifiedAt;
   String? roleId;
   String? createdAt;
   String? updatedAt;

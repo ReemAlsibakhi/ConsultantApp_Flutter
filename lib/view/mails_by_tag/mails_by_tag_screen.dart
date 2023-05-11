@@ -1,4 +1,4 @@
-import 'package:consultant_app/view/mails_by_tag/MailsByTagVM.dart';
+import 'package:consultant_app/view/mails_by_tag/mails_by_tag_vm.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

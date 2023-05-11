@@ -18,4 +18,6 @@ class ApiEndPoints {
   final String getMailByTag = "${baseUrl}tags?tags=";
   //search
   final String search = "${baseUrl}search?";
+  //Sender
+  final String createSender = "${baseUrl}senders";
 }

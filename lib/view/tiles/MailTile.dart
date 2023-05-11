@@ -1,5 +1,5 @@
 import 'package:consultant_app/model/mail/MailData.dart';
-import 'package:consultant_app/view/details/DetailsScreen.dart';
+import 'package:consultant_app/view/details/details_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../../utils/Constants.dart';

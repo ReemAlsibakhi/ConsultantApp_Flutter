@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 
 import '../../data/remote/response/ApiResponse.dart';
 import '../../model/status/SingleStatusModel.dart';
-import 'MailsByStatusRepo.dart';
+import 'mails_by_status_repo.dart';
 
 class MailsByStatusVM extends ChangeNotifier {
   ApiResponse<SingleStatusModel> mailsByStatus = ApiResponse.loading();

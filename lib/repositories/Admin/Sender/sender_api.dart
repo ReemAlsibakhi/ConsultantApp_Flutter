@@ -1,12 +1,12 @@
 import 'package:consultant_app/data/services/api_services.dart';
 
-import '../../../controllers/constants.dart';
+import '../../../utils/Constants.dart';
 
 class SenderApi {
   ApiServices service = ApiServices();
-  getAllSenders(){
+  getAllSenders() {
     final String url = "$baseUrl" "/" "senders";
-    var json =service.getData(url);
+    var json = service.getData(url);
     return json;
   }
 }

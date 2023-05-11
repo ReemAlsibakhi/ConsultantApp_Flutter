@@ -1,12 +1,13 @@
 import 'dart:async';
 
 import 'package:consultant_app/utils/SharedPref.dart';
-import 'package:consultant_app/view/auth/TabBarScreen.dart';
+import 'package:consultant_app/view/auth/tab_bar_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../model/user/User.dart';
 import '../../../utils/Constants.dart';
-import '../../home/HomeScreen.dart';
+import '../../home/home_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -23,12 +24,14 @@ class _SplashScreenState extends State<SplashScreen> {
       () async {
         // await SharedPref.inst.getToken() == '' ? isLogin = false : true;
         isLogin = (await SharedPref.inst.getBool(AppKeys.ISLogged))!;
+        User? user = await SharedPref.inst.getUserData();
+
         // print('isLogin: $isLogin');
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
             builder: (BuildContext context) {
-              return isLogin ? HomeScreen() : TabBarScreen();
+              return isLogin ? HomeScreen(user: user!) : TabBarScreen();
             },
           ),
         );

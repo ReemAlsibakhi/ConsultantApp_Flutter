@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:consultant_app/view/filter/FilterScreen.dart';
-import 'package:consultant_app/view/filter/FilterVM.dart';
+import 'package:consultant_app/view/filter/filter_screen.dart';
+import 'package:consultant_app/view/filter/filter_vm.dart';
 import 'package:consultant_app/view/search/SearchVM.dart';
 import 'package:consultant_app/view/widgets/LoadingWidget.dart';
 import 'package:flutter/material.dart';

@@ -4,22 +4,23 @@ import 'package:consultant_app/repositories/Admin/Status/r_status_screen.dart';
 import 'package:consultant_app/repositories/Admin/Users/all_users.dart';
 import 'package:consultant_app/repositories/Admin/Users/create_user.dart';
 import 'package:consultant_app/utils/SharedPref.dart';
-import 'package:consultant_app/view/auth/TabBarScreen.dart';
-import 'package:consultant_app/view/auth/login/LoginScreen.dart';
-import 'package:consultant_app/view/auth/login/LoginVM.dart';
-import 'package:consultant_app/view/auth/register/RegisterScreen.dart';
-import 'package:consultant_app/view/auth/register/RegisterVM.dart';
-import 'package:consultant_app/view/auth/splach/SplashScreen.dart';
+import 'package:consultant_app/view/auth/login/login_screen.dart';
+import 'package:consultant_app/view/auth/login/login_vm.dart';
+import 'package:consultant_app/view/auth/register/register_screen.dart';
+import 'package:consultant_app/view/auth/register/register_vm.dart';
+import 'package:consultant_app/view/auth/splach/splash_screen.dart';
+import 'package:consultant_app/view/auth/tab_bar_screen.dart';
 import 'package:consultant_app/view/category/categoriy_screen.dart';
-import 'package:consultant_app/view/details/DetailsScreen.dart';
-import 'package:consultant_app/view/details/DetailsVM.dart';
-import 'package:consultant_app/view/filter/FilterVM.dart';
-import 'package:consultant_app/view/home/HomeScreen.dart';
-import 'package:consultant_app/view/home/HomeVM.dart';
-import 'package:consultant_app/view/mails_by_status/MailsByStatusScreen.dart';
-import 'package:consultant_app/view/mails_by_status/MailsByStatusVM.dart';
-import 'package:consultant_app/view/mails_by_tag/MailsByTagScreen.dart';
-import 'package:consultant_app/view/mails_by_tag/MailsByTagVM.dart';
+import 'package:consultant_app/view/details/details_screen.dart';
+import 'package:consultant_app/view/details/details_vm.dart';
+import 'package:consultant_app/view/filter/filter_vm.dart';
+import 'package:consultant_app/view/home/home_vm.dart';
+import 'package:consultant_app/view/mails_by_status/mails_by_status_screen.dart';
+import 'package:consultant_app/view/mails_by_status/mails_by_status_vm.dart';
+import 'package:consultant_app/view/mails_by_tag/mails_by_tag_screen.dart';
+import 'package:consultant_app/view/mails_by_tag/mails_by_tag_vm.dart';
+import 'package:consultant_app/view/new_inbox/new_inbox_screen.dart';
+import 'package:consultant_app/view/new_inbox/new_inbox_vm.dart';
 import 'package:consultant_app/view/search/SearchVM.dart';
 import 'package:consultant_app/view/status/StatusScreen.dart';
 import 'package:consultant_app/view/tag/TagScreen.dart';
@@ -48,6 +49,7 @@ void main() async {
         ChangeNotifierProvider(create: (_) => MailsByStatusVM()),
         ChangeNotifierProvider(create: (_) => SearchVM()),
         ChangeNotifierProvider(create: (_) => FilterVM()),
+        ChangeNotifierProvider(create: (_) => NewInboxVM()),
       ],
       child: MyApp(),
     ),
@@ -72,7 +74,7 @@ class MyApp extends StatelessWidget {
                 '/TabBar': (context) => TabBarScreen(),
                 '/Login': (context) => LoginScreen(),
                 '/Register': (context) => RegisterScreen(),
-                '/Home': (context) => HomeScreen(),
+                //  '/Home': (context) => HomeScreen(),
                 '/Details': (context) => DetailsScreen(),
                 '/Statuses': (context) => StatusScreen(),
                 '/Tags': (context) => TagScreen(),
@@ -84,6 +86,7 @@ class MyApp extends StatelessWidget {
                 'Admin/status': (context) => RStatusScreen(),
                 '/Admin/Category/create': (context) => CreateCategory(),
                 '/Category': (context) => CategoriyScreen(),
+                '/NewInbox': (context) => NewInboxScreen(),
               },
             ));
   }

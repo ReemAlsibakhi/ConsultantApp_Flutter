@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 
 import '../../data/remote/response/ApiResponse.dart';
 import '../../model/mail/MailModel.dart';
-import 'DetailsRepo.dart';
+import 'details_repo.dart';
 
 class DetailsVM extends ChangeNotifier {
   ApiResponse<MailModel> updateMail = ApiResponse.loading();

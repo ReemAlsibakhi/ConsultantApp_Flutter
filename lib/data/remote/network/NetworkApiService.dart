@@ -53,14 +53,14 @@ class NetworkApiService extends BaseApiService {
 
   @override
   Future postResponse(String url, Map JsonBody) async {
-    //String? token = await SharedPref.inst.getString(AppKeys.TOKEN);
+    String? token = await SharedPref.inst.getString(AppKeys.TOKEN);
     dynamic responseJson;
     try {
       final response = await http.post(
         Uri.parse(url),
         body: JsonBody,
         headers: {
-          'Authorization': 'Bearer ',
+          'Authorization': 'Bearer $token',
         },
       );
       responseJson = returnResponse(response);

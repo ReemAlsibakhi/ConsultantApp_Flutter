@@ -40,4 +40,12 @@ class SharedPref {
     final user = _prefs.getString(AppKeys.USER);
     return user == null ? '' : UserModel.fromJson(json.decode(user)).token!;
   }
+
+  Future<bool> clear() async {
+    return await _prefs.clear();
+  }
+
+  Future<bool> remove(String key) async {
+    return await _prefs.remove(key);
+  }
 }

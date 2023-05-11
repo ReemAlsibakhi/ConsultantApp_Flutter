@@ -5,28 +5,26 @@ import 'package:flutter/material.dart';
 import '../../../model/user/UserModel.dart';
 import '../../../utils/Constants.dart';
 import '../../../utils/SharedPref.dart';
-import '../../home/HomeScreen.dart';
+import '../../home/home_screen.dart';
 import '../../widgets/ShowLoadingDialog.dart';
-import 'RegisterRepo.dart';
+import 'login_repo.dart';
 
-class RegisterVM extends ChangeNotifier {
-  RegisterRepo repo = RegisterRepo();
+class LoginVM extends ChangeNotifier {
+  LoginRepo repo = LoginRepo();
+
+  UserModel? _user;
+  UserModel? get user => _user;
 
   bool _isLoading = false;
   bool get isLoading => _isLoading;
 
   String? _emailError;
   String? _passwordError;
-  String? _confirmPasswordError;
-  String? _nameError;
 
   String? get emailError => _emailError;
   String? get passwordError => _passwordError;
-  String? get confirmPasswordError => _confirmPasswordError;
-  String? get nameError => _nameError;
 
-  bool validateInputs(
-      String email, String password, String confirmPass, String userName) {
+  bool validateInputs(String email, String password) {
     bool isValid = true;
     if (email.isEmpty) {
       _emailError = 'Please enter your email';
@@ -47,53 +45,35 @@ class RegisterVM extends ChangeNotifier {
     } else {
       _passwordError = null;
     }
-    if (confirmPass.isEmpty) {
-      _confirmPasswordError = 'Please enter your confirm password';
-      isValid = false;
-    } else if (confirmPass.length < 6) {
-      isValid = false;
-      _confirmPasswordError = 'Password must be at least 6 characters long';
-    } else if (password != confirmPass) {
-      isValid = false;
-      _confirmPasswordError = 'Passwords not match';
-    } else {
-      _confirmPasswordError = null;
-    }
-    if (userName.isEmpty) {
-      _nameError = 'Please enter your userName';
-      isValid = false;
-    } else {
-      _nameError = null;
-    }
 
     notifyListeners();
     return isValid;
   }
 
-  Future<void> registerRequest(
-      String email, String pass, String name, BuildContext context) async {
+  Future<void> loginRequest(
+      String email, String pass, BuildContext context) async {
     _isLoading = true;
     showLoadingDialog(context);
 
     try {
-      repo.register(email, pass, name).then((value) async {
+      repo.login(email, pass).then((value) async {
         _isLoading = false;
         Navigator.pop(context);
 
-        SharedPref.inst.setString(AppKeys.TOKEN, value!.token!);
-        SharedPref.inst.setString(AppKeys.USER, json.encode(value));
-        SharedPref.inst.setBool(AppKeys.ISLogged, true);
-
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text(value!.user!.role!.name!),
+          content: Text(value.user!.role!.name!),
           backgroundColor: kLightPrimaryColor,
         ));
+
         Navigator.pushAndRemoveUntil(context,
             MaterialPageRoute(builder: (BuildContext context) {
-          return const HomeScreen();
+          return HomeScreen(user: value.user!);
         }), (r) {
           return false;
         });
+        SharedPref.inst.setString(AppKeys.TOKEN, value.token!);
+        SharedPref.inst.setString(AppKeys.USER, json.encode(value));
+        SharedPref.inst.setBool(AppKeys.ISLogged, true);
       }).onError((error, stackTrace) {
         _isLoading = false;
         Navigator.pop(context);

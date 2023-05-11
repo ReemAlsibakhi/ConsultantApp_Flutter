@@ -25,23 +25,4 @@ class RegisterRepo {
       throw e;
     }
   }
-
-  // Future<UserModel> register(String email, String password, String name) async {
-  //   print('email: $email, password: $password');
-  //   final response = await http.post(Uri.parse(ApiEndPoints().register),
-  //       headers: {'Content-Type': 'application/json'},
-  //       body: jsonEncode(<String, String>{
-  //         'email': email,
-  //         'password': password,
-  //         'password_confirmation': password,
-  //         'name': name
-  //       }));
-  //   print('responce ${response.body}');
-  //   if (response.statusCode == 200) {
-  //     print('success');
-  //     return UserModel.fromJson(jsonDecode(response.body));
-  //   } else {
-  //     throw Exception('Failed to login');
-  //   }
-  // }
 }

@@ -1,6 +1,7 @@
 import 'package:consultant_app/model/status/StatusMail.dart';
-import 'package:consultant_app/view/mails_by_status/MailsByStatusScreen.dart';
+import 'package:consultant_app/view/mails_by_status/mails_by_status_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../utils/Constants.dart';
 import '../widgets/CustomText.dart';
@@ -30,7 +31,7 @@ class StatusTile extends StatelessWidget {
         elevation: 1,
         child: Padding(
           padding:
-              const EdgeInsets.only(bottom: 9, left: 16, right: 14, top: 10),
+              EdgeInsets.only(bottom: 9.h, left: 16.h, right: 14.h, top: 10.h),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

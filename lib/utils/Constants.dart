@@ -17,6 +17,26 @@ const kDarkGreyColor3 = Color(0xFF959595);
 const kLightGreyColor2 = Color(0xFFEEEEF6);
 const kRedColor = Color(0xFFFF2E2E);
 
+String baseUrl = "https://palmail.betweenltd.com/api";
+String loginEndPoint = "login";
+String registerEndpoint = "register";
+String logOutEndPoint = "logout";
+String createNewUser = "users";
+
+String createCategoryEndPoint = "mails";
+Map<String, String>? headers = {
+  "Content-Type": "application/json",
+  "accept": "application/json",
+  "Access-Control-Allow-Origin": "*",
+};
+
+Map<String, String>? authHeaders = {
+  "Content-Type": "application/json",
+  "accept": "application/json",
+  "Access-Control-Allow-Origin": "*",
+  // 'Authorization': 'Bearer ${ms.readFromHiveBox("token")}'
+};
+
 const kGradientColor = BoxDecoration(
   gradient: LinearGradient(
     begin: Alignment.centerLeft,
@@ -42,10 +62,19 @@ String getArchDate(String date) {
   return outputDate;
 }
 
-
 class AppKeys {
   static const String ISLogged = "is_logged_in";
   static const String USER = "USER_DATA";
   static const String TOKEN = "token";
   static const String Language = "lang";
+}
+
+class ApiKeys {
+  String token = "token";
+  String createdDate = "createdDate";
+  String email = "email";
+  String roleName = "role";
+  String hiveBoxName = "myBox";
+  String isLoggedInKey = "loggedIn";
+// bool? isLoggedInDefaultValue;
 }

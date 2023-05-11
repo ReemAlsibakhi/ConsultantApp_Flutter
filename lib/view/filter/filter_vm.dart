@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import '../../data/remote/response/ApiResponse.dart';
 import '../../model/category/CategoryModel.dart';
 import '../../model/status/StatusModel.dart';
-import 'FilterRepo.dart';
+import 'filter_repo.dart';
 
 class FilterVM extends ChangeNotifier {
   ApiResponse<CategoryModel> catMain = ApiResponse.loading();

@@ -9,7 +9,7 @@ import '../../model/status/StatusMail.dart';
 import '../../utils/Constants.dart';
 import '../widgets/CustomText.dart';
 import '../widgets/MyErrorWidget.dart';
-import 'FilterVM.dart';
+import 'filter_vm.dart';
 
 class FilterScreen extends StatelessWidget {
   // const FilterScreen({Key? key}) : super(key: key);

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../model/mail/Tags.dart';
 import '../../../utils/Constants.dart';
@@ -15,6 +16,7 @@ class TagGridList extends StatelessWidget {
           'Not found data', 14, 'Poppins', kDarkGreyColor, FontWeight.w400);
     }
     return Container(
+      margin: EdgeInsets.only(top: 15.h, bottom: 18.h),
       decoration: const BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.all(Radius.circular(22))),

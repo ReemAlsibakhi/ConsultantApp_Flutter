@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:consultant_app/utils/Constants.dart';
-import 'package:consultant_app/view/mails_by_status/MailsByStatusVM.dart';
+import 'package:consultant_app/view/mails_by_status/mails_by_status_vm.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
