@@ -1,40 +1,33 @@
-import 'package:consultant_app/repositories/Admin/Category/all_categories.dart';
-import 'package:consultant_app/repositories/Admin/Category/category_create.dart';
-import 'package:consultant_app/repositories/Admin/Status/r_status_screen.dart';
-import 'package:consultant_app/repositories/Admin/Users/all_users.dart';
-import 'package:consultant_app/repositories/Admin/Users/create_user.dart';
-import 'package:consultant_app/utils/SharedPref.dart';
-import 'package:consultant_app/view/auth/login/login_screen.dart';
-import 'package:consultant_app/view/auth/login/login_vm.dart';
-import 'package:consultant_app/view/auth/register/register_screen.dart';
-import 'package:consultant_app/view/auth/register/register_vm.dart';
-import 'package:consultant_app/view/auth/splach/splash_screen.dart';
-import 'package:consultant_app/view/auth/tab_bar_screen.dart';
-import 'package:consultant_app/view/category/categoriy_screen.dart';
-import 'package:consultant_app/view/details/details_screen.dart';
-import 'package:consultant_app/view/details/details_vm.dart';
-import 'package:consultant_app/view/filter/filter_vm.dart';
-import 'package:consultant_app/view/home/home_vm.dart';
-import 'package:consultant_app/view/mails_by_status/mails_by_status_screen.dart';
-import 'package:consultant_app/view/mails_by_status/mails_by_status_vm.dart';
-import 'package:consultant_app/view/mails_by_tag/mails_by_tag_screen.dart';
-import 'package:consultant_app/view/mails_by_tag/mails_by_tag_vm.dart';
-import 'package:consultant_app/view/new_inbox/new_inbox_screen.dart';
-import 'package:consultant_app/view/new_inbox/new_inbox_vm.dart';
-import 'package:consultant_app/view/search/SearchVM.dart';
-import 'package:consultant_app/view/status/StatusScreen.dart';
-import 'package:consultant_app/view/tag/TagScreen.dart';
-import 'package:consultant_app/view/tag/TagVM.dart';
+import 'package:consultant_app/utils/app_localizations.dart';
+import 'package:consultant_app/utils/shared_pref.dart';
+import 'package:consultant_app/view/screens/auth/login/login_screen.dart';
+import 'package:consultant_app/view/screens/auth/login/login_vm.dart';
+import 'package:consultant_app/view/screens/auth/register/register_screen.dart';
+import 'package:consultant_app/view/screens/auth/register/register_vm.dart';
+import 'package:consultant_app/view/screens/auth/splach/splash_screen.dart';
+import 'package:consultant_app/view/screens/auth/tab_bar_screen.dart';
+import 'package:consultant_app/view/screens/category/category_vm.dart';
+import 'package:consultant_app/view/screens/details/details_vm.dart';
+import 'package:consultant_app/view/screens/filter/filter_vm.dart';
+import 'package:consultant_app/view/screens/home/home_vm.dart';
+import 'package:consultant_app/view/screens/mails_by_status/mails_by_status_screen.dart';
+import 'package:consultant_app/view/screens/mails_by_status/mails_by_status_vm.dart';
+import 'package:consultant_app/view/screens/mails_by_tag/mails_by_tag_screen.dart';
+import 'package:consultant_app/view/screens/mails_by_tag/mails_by_tag_vm.dart';
+import 'package:consultant_app/view/screens/new_inbox/new_inbox_screen.dart';
+import 'package:consultant_app/view/screens/new_inbox/new_inbox_vm.dart';
+import 'package:consultant_app/view/screens/search/SearchVM.dart';
+import 'package:consultant_app/view/screens/status/status_screen.dart';
+import 'package:consultant_app/view/screens/status/status_vm.dart';
+import 'package:consultant_app/view/screens/tags/tags_screen.dart';
+import 'package:consultant_app/view/screens/tags/tags_vm.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
-import 'view/status/StatusVM.dart';
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // final applicationDocDir = await getApplicationDocumentsDirectory();
-  // await Hive.initFlutter(applicationDocDir.path);
   await SharedPref.inst.onInit();
   runApp(
     MultiProvider(
@@ -44,12 +37,13 @@ void main() async {
         ChangeNotifierProvider(create: (_) => StatusVM()),
         ChangeNotifierProvider(create: (_) => HomeVM()),
         ChangeNotifierProvider(create: (_) => DetailsVM()),
-        ChangeNotifierProvider(create: (_) => ProviderTags()),
+        ChangeNotifierProvider(create: (_) => TagsVM()),
         ChangeNotifierProvider(create: (_) => MailsByTagVM()),
         ChangeNotifierProvider(create: (_) => MailsByStatusVM()),
         ChangeNotifierProvider(create: (_) => SearchVM()),
         ChangeNotifierProvider(create: (_) => FilterVM()),
         ChangeNotifierProvider(create: (_) => NewInboxVM()),
+        ChangeNotifierProvider(create: (_) => CategoryVM()),
       ],
       child: MyApp(),
     ),
@@ -63,6 +57,19 @@ class MyApp extends StatelessWidget {
     return ScreenUtilInit(
         designSize: const Size(360, 780),
         builder: (context, child) => MaterialApp(
+              // Set the fallback locale to English
+              locale: const Locale('en'),
+              // Define the supported locales for your app
+              supportedLocales: const [
+                Locale('en', 'US'), // English
+                Locale('ar', 'SA'), // Arabic
+              ],
+              localizationsDelegates: const [
+                GlobalMaterialLocalizations.delegate,
+                GlobalWidgetsLocalizations.delegate,
+                // Add the generated AppLocalizations.delegate
+                AppLocalizations.delegate,
+              ],
               debugShowCheckedModeBanner: false,
               title: 'Pal Mail',
               theme: ThemeData(
@@ -74,18 +81,13 @@ class MyApp extends StatelessWidget {
                 '/TabBar': (context) => TabBarScreen(),
                 '/Login': (context) => LoginScreen(),
                 '/Register': (context) => RegisterScreen(),
-                //  '/Home': (context) => HomeScreen(),
-                '/Details': (context) => DetailsScreen(),
+                // '/Home': (context) => HomeScreen(),
+                // '/Details': (context) => DetailsScreen(),
                 '/Statuses': (context) => StatusScreen(),
-                '/Tags': (context) => TagScreen(),
+                '/Tags': (context) => TagsScreen(),
                 '/MailByTag': (context) => MailsByTagScreen(),
                 '/MailByStatus': (context) => MailsByStatusScreen(),
-                '/Admin/CreateUser': (context) => CreateUser(),
-                '/Admin/Users': (context) => AllUsers(),
-                'Admin/Category': (context) => AdminCatgeoryScreen(),
-                'Admin/status': (context) => RStatusScreen(),
-                '/Admin/Category/create': (context) => CreateCategory(),
-                '/Category': (context) => CategoriyScreen(),
+                // '/Category': (context) => CategoriyScreen(),
                 '/NewInbox': (context) => NewInboxScreen(),
               },
             ));

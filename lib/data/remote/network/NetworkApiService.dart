@@ -1,8 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:consultant_app/utils/Constants.dart';
-import 'package:consultant_app/utils/SharedPref.dart';
+import 'package:consultant_app/utils/app_constants.dart';
+import 'package:consultant_app/utils/shared_pref.dart';
 import 'package:http/http.dart' as http;
 
 import '../AppException.dart';
@@ -14,7 +14,7 @@ class NetworkApiService extends BaseApiService {
 
   @override
   Future getResponse(String url) async {
-    String? token = await SharedPref.inst.getString(AppKeys.TOKEN);
+    String? token = await SharedPref.inst.getString(AppConstants.TOKEN);
     print('token getResponse $token');
     try {
       final response = await http.get(
@@ -34,7 +34,7 @@ class NetworkApiService extends BaseApiService {
 
   @override
   Future putResponse(String url, Map<String, dynamic> jsonBody) async {
-    String? token = await SharedPref.inst.getString(AppKeys.TOKEN);
+    String? token = await SharedPref.inst.getString(AppConstants.TOKEN);
     dynamic responseJson;
     try {
       final response = await http.put(
@@ -53,7 +53,7 @@ class NetworkApiService extends BaseApiService {
 
   @override
   Future postResponse(String url, Map JsonBody) async {
-    String? token = await SharedPref.inst.getString(AppKeys.TOKEN);
+    String? token = await SharedPref.inst.getString(AppConstants.TOKEN);
     dynamic responseJson;
     try {
       final response = await http.post(
